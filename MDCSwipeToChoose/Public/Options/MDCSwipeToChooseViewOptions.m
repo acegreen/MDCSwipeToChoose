@@ -30,15 +30,20 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _likedText = [NSLocalizedString(@"liked", nil) uppercaseString];
-        _likedColor = [UIColor mdc_colorWith8BitRed:29.f green:245.f blue:106.f alpha:1.f];
-        _likedRotationAngle = -15.f;
 
-        _nopeText = [NSLocalizedString(@"nope", nil) uppercaseString];
-        _nopeColor = [UIColor mdc_colorWith8BitRed:247.f green:91.f blue:37.f alpha:1.f];
-        _nopeRotationAngle = 15.f;
+        _longText = [NSLocalizedString(@"long", nil) uppercaseString];
+        _longColor = [UIColor colorWithRed: 25/255 green: 215/255.0f blue: 25/255.0f alpha: 1.0f];
+        _longRotationAngle = -15.f;
+        
+        _shortText = [NSLocalizedString(@"short", nil) uppercaseString];
+        _shortColor = [UIColor redColor];
+        _shortRotationAngle = 15.f;
+        
+        _skipText = [NSLocalizedString(@"skip", nil) uppercaseString];
+        _skipColor = [UIColor grayColor];
+        _skipRotationAngle = 0.f;
 
-        _threshold = 100.f;
+        _threshold = 250.f;
         _swipeEnabled = YES;
     }
     return self;

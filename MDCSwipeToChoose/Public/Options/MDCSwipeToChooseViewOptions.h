@@ -40,49 +40,73 @@
  * The text displayed in the `likedView`. A default value is provided in the
  * `-init` method.
  */
-@property (nonatomic, copy) NSString *likedText;
+@property (nonatomic, copy) NSString *longText;
 
 /*!
  * The color of the text and border of the `likedView`. A default value is provided in the
  * `-init` method.
  */
-@property (nonatomic, strong) UIColor *likedColor;
+@property (nonatomic, strong) UIColor *longColor;
 
 /*!
  * The image used to displayed in the `likeView`. If this is present, it will take
  * precedence over the likeText
  */
-@property (nonatomic, strong) UIImage *likedImage;
+@property (nonatomic, strong) UIImage *longImage;
 
 /*!
  * The rotation angle of the `likedView`. A default value is provided in the
  * `-init` method.
  */
-@property (nonatomic, assign) CGFloat likedRotationAngle;
+@property (nonatomic, assign) CGFloat longRotationAngle;
 
 /*!
  * The text displayed in the `nopeView`. A default value is provided in the
  * `-init` method.
  */
-@property (nonatomic, copy) NSString *nopeText;
+@property (nonatomic, copy) NSString *shortText;
 
 /*!
  * The color of the text and border of the `nopeView`. A default value is provided in the
  * `-init` method.
  */
-@property (nonatomic, strong) UIColor *nopeColor;
+@property (nonatomic, strong) UIColor *shortColor;
 
 /*!
- * The image used to displayed in the `nopeView`. If this is present, it will take
- * precedence over the nopeText
+ * The image used to displayed in the `likeView`. If this is present, it will take
+ * precedence over the likeText
  */
-@property (nonatomic, strong) UIImage *nopeImage;
+@property (nonatomic, strong) UIImage *shortImage;
 
 /*!
  * The rotation angle of the `nopeView`. A default value is provided in the
  * `-init` method.
  */
-@property (nonatomic, assign) CGFloat nopeRotationAngle;
+@property (nonatomic, assign) CGFloat shortRotationAngle;
+
+/*!
+ * The text displayed in the `skipView`. A default value is provided in the
+ * `-init` method.
+ */
+@property (nonatomic, copy) NSString *skipText;
+
+/*!
+ * The color of the text and border of the `skipView`. A default value is provided in the
+ * `-init` method.
+ */
+@property (nonatomic, strong) UIColor *skipColor;
+
+/*!
+ * The image used to displayed in the `likeView`. If this is present, it will take
+ * precedence over the likeText
+ */
+@property (nonatomic, strong) UIImage *skipImage;
+
+/*!
+ * The rotation angle of the `skipView`. A default value is provided in the
+ * `-init` method.
+ */
+@property (nonatomic, assign) CGFloat skipRotationAngle;
 
 /*!
  * The distance, in pixels, that a view must be panned in order to constitue a selection.
