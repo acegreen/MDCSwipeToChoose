@@ -29,10 +29,11 @@
 #import "UIColor+MDCRGB8Bit.h"
 #import <QuartzCore/QuartzCore.h>
 
-static CGFloat const MDCSwipeToChooseViewHorizontalPadding = 10.f;
-static CGFloat const MDCSwipeToChooseViewTopPadding = 20.f;
+static CGFloat const MDCSwipeToChooseViewHorizontalPadding = 30.f;
+static CGFloat const MDCSwipeToChooseViewTopPadding = 50.f;
 static CGFloat const MDCSwipeToChooseViewImageTopPadding = 150.f;
-static CGFloat const MDCSwipeToChooseViewLabelWidth = 75.f;
+static CGFloat const MDCSwipeToChooseViewLabelWidth = 150.f;
+static CGFloat const MDCSwipeToChooseViewLabelHeight = 75.f;
 
 @interface MDCSwipeToChooseView ()
 @property (nonatomic, strong) MDCSwipeToChooseViewOptions *options;
@@ -76,12 +77,12 @@ static CGFloat const MDCSwipeToChooseViewLabelWidth = 75.f;
 }
 
 - (void)constructLongView {
-    CGFloat yOrigin = (self.options.longImage ? MDCSwipeToChooseViewImageTopPadding : MDCSwipeToChooseViewTopPadding);
+//    CGFloat yOrigin = (self.options.longImage ? MDCSwipeToChooseViewImageTopPadding : MDCSwipeToChooseViewTopPadding);
 
-    CGRect frame = CGRectMake(MDCSwipeToChooseViewHorizontalPadding,
-                              yOrigin,
-                              CGRectGetMidX(self.contentView.bounds),
-                              MDCSwipeToChooseViewLabelWidth);
+    CGRect frame = CGRectMake((CGRectGetMidX(self.bounds) - (MDCSwipeToChooseViewLabelWidth / 2)),
+                              (CGRectGetMidY(self.bounds) - (MDCSwipeToChooseViewLabelHeight / 2)),
+                              MDCSwipeToChooseViewLabelWidth,
+                              MDCSwipeToChooseViewLabelHeight);
     if (self.options.longImage) {
         self.longView = [[UIImageView alloc] initWithImage:self.options.longImage];
         self.longView.frame = frame;
@@ -98,12 +99,12 @@ static CGFloat const MDCSwipeToChooseViewLabelWidth = 75.f;
 
 - (void)constructShortView {
     CGFloat width = CGRectGetMidX(self.contentView.bounds);
-    CGFloat xOrigin = CGRectGetMaxX(self.contentView.bounds) - width - MDCSwipeToChooseViewHorizontalPadding;
-    CGFloat yOrigin = (self.options.shortImage ? MDCSwipeToChooseViewImageTopPadding : MDCSwipeToChooseViewTopPadding);
-    CGRect frame = CGRectMake(xOrigin,
-                              yOrigin,
-                              width,
-                              MDCSwipeToChooseViewLabelWidth);
+//    CGFloat xOrigin = CGRectGetMaxX(self.contentView.bounds) - width - MDCSwipeToChooseViewHorizontalPadding;
+//    CGFloat yOrigin = (self.options.shortImage ? MDCSwipeToChooseViewImageTopPadding : MDCSwipeToChooseViewTopPadding);
+    CGRect frame = CGRectMake((CGRectGetMidX(self.bounds) - (MDCSwipeToChooseViewLabelWidth / 2)),
+                              (CGRectGetMidY(self.bounds) - (MDCSwipeToChooseViewLabelHeight / 2)),
+                              MDCSwipeToChooseViewLabelWidth,
+                              MDCSwipeToChooseViewLabelHeight);
     if (self.options.shortImage) {
         self.shortView = [[UIImageView alloc] initWithImage:self.options.shortImage];
         self.shortView.frame = frame;
@@ -120,12 +121,12 @@ static CGFloat const MDCSwipeToChooseViewLabelWidth = 75.f;
 
 - (void)constructSkipView {
     CGFloat width = CGRectGetMidX(self.contentView.bounds);
-    CGFloat xOrigin = CGRectGetMaxX(self.contentView.bounds) - width - MDCSwipeToChooseViewHorizontalPadding;
-    CGFloat yOrigin = (self.options.skipImage ? MDCSwipeToChooseViewImageTopPadding : MDCSwipeToChooseViewTopPadding);
-    CGRect frame = CGRectMake(xOrigin,
-                              yOrigin,
-                              width,
-                              MDCSwipeToChooseViewLabelWidth);
+//    CGFloat xOrigin = CGRectGetMaxX(self.contentView.bounds) - width - MDCSwipeToChooseViewHorizontalPadding;
+//    CGFloat yOrigin = (self.options.skipImage ? MDCSwipeToChooseViewImageTopPadding : MDCSwipeToChooseViewTopPadding);
+    CGRect frame = CGRectMake((CGRectGetMidX(self.bounds) - (MDCSwipeToChooseViewLabelWidth / 2)),
+                              (CGRectGetMidY(self.bounds) - (MDCSwipeToChooseViewLabelHeight / 2)),
+                              MDCSwipeToChooseViewLabelWidth,
+                              MDCSwipeToChooseViewLabelHeight);
     if (self.options.skipImage) {
         self.skipView = [[UIImageView alloc] initWithImage:self.options.skipImage];
         self.skipView.frame = frame;

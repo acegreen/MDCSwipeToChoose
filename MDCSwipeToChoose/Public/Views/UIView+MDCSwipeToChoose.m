@@ -139,10 +139,11 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
             [self mdc_exitSuperviewFromTranslation:translation];
             break;
         }
-        case MDCSwipeDirectionNone:
+        case MDCSwipeDirectionNone: {
             [self mdc_returnToOriginalCenter];
             [self mdc_executeOnPanBlockForTranslation:CGPointZero];
             break;
+        }
     }
 }
 
