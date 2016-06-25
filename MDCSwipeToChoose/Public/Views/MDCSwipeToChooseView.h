@@ -40,12 +40,17 @@
 /*!
  * The "liked" view, which fades in as the `MDCSwipeToChooseView` is panned to the right.
  */
-@property (nonatomic, strong) UIView *likedView;
+@property (nonatomic, strong) UIView *longView;
 
 /*!
  * The "nope" view, which fades in as the `MDCSwipeToChooseView` is panned to the left.
  */
-@property (nonatomic, strong) UIView *nopeView;
+@property (nonatomic, strong) UIView *shortView;
+
+/*!
+ * The "skip" view, which fades in as the `MDCSwipeToChooseView` is panned to the up.
+ */
+@property (nonatomic, strong) UIView *skipView;
 
 /*!
  * The designated initializer takes a `frame` and a set of options to customize

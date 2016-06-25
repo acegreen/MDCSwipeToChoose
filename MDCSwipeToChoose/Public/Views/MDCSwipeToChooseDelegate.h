@@ -40,4 +40,9 @@
  */
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction;
 
+/*!
+ * Sent after a tap is made.
+ */
+- (void)viewDidGetTapped:(UIView *)view;
+
 @end

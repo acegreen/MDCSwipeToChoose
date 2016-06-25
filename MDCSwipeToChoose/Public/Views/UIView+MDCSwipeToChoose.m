@@ -43,6 +43,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 
     if (options.swipeEnabled) {
         [self mdc_setupPanGestureRecognizer];
+        [self mdc_setupTapGestureRecognizer];
     }
 }
 
@@ -112,6 +113,14 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     [self addGestureRecognizer:panGestureRecognizer];
 }
 
+- (void)mdc_setupTapGestureRecognizer {
+    SEL action = @selector(mdc_onSwipeToChooseTapGestureRecognizer:);
+    UITapGestureRecognizer *tapGestureRecognizer =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:action];
+    [self addGestureRecognizer:tapGestureRecognizer];
+}
+
 #pragma mark Translation
 
 - (void)mdc_finalizePosition {
@@ -121,6 +130,8 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 
 - (void)mdc_finalizePositionForDirection:(MDCSwipeDirection)direction {
     switch (direction) {
+        case MDCSwipeDirectionUp:
+        case MDCSwipeDirectionDown:
         case MDCSwipeDirectionRight:
         case MDCSwipeDirectionLeft: {
             CGPoint translation = MDCCGPointSubtract(self.center,
@@ -179,10 +190,33 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
         CGFloat thresholdRatio = MIN(1.f, fabs(translation.x)/self.mdc_options.threshold);
 
         MDCSwipeDirection direction = MDCSwipeDirectionNone;
-        if (translation.x > 0.f) {
-            direction = MDCSwipeDirectionRight;
-        } else if (translation.x < 0.f) {
-            direction = MDCSwipeDirectionLeft;
+        
+        if (ABS(translation.y) > ABS(translation.x)) {
+            
+            thresholdRatio = MIN(1.f, fabs(translation.y)/self.mdc_options.threshold);
+            
+            if (translation.y < 0.f) {
+                
+                direction = MDCSwipeDirectionUp;
+                
+            } else if(translation.y > 0.f) {
+                
+                direction = MDCSwipeDirectionDown;
+            }
+            
+        } else {
+            
+            thresholdRatio = MIN(1.f, fabs(translation.x)/self.mdc_options.threshold);
+            
+            if (translation.x > 0.f) {
+                
+                direction = MDCSwipeDirectionRight;
+                
+            } else if (translation.x < 0.f) {
+                
+                direction = MDCSwipeDirectionLeft;
+                
+            }
         }
 
         MDCPanState *state = [MDCPanState new];
@@ -213,6 +247,10 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
             return CGPointMake(-offset, 0);
         case MDCSwipeDirectionRight:
             return CGPointMake(offset, 0);
+        case MDCSwipeDirectionUp:
+            return CGPointMake(0, -offset);
+        case MDCSwipeDirectionDown:
+            return CGPointMake(0, offset);
         default:
             [NSException raise:NSInternalInconsistencyException
                         format:@"Invallid direction argument."];
@@ -225,6 +263,10 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
         return MDCSwipeDirectionRight;
     } else if (self.center.x < self.mdc_viewState.originalCenter.x - self.mdc_options.threshold) {
         return MDCSwipeDirectionLeft;
+    } else if (self.center.y < self.mdc_viewState.originalCenter.y - self.mdc_options.threshold) {
+        return MDCSwipeDirectionUp;
+    } else if (self.center.y > self.mdc_viewState.originalCenter.y + self.mdc_options.threshold) {
+        return MDCSwipeDirectionDown;
     } else {
         return MDCSwipeDirectionNone;
     }
@@ -259,6 +301,14 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
         [self mdc_rotateForTranslation:translation
                      rotationDirection:self.mdc_viewState.rotationDirection];
         [self mdc_executeOnPanBlockForTranslation:translation];
+    }
+}
+
+- (void)mdc_onSwipeToChooseTapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
+    
+    id<MDCSwipeToChooseDelegate> delegate = self.mdc_options.delegate;
+    if ([delegate respondsToSelector:@selector(viewDidGetTapped:)]) {
+        [delegate viewDidGetTapped:self];
     }
 }
 
