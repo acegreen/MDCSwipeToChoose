@@ -188,7 +188,8 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 
 - (void)mdc_executeOnPanBlockForTranslation:(CGPoint)translation {
     if (self.mdc_options.onPan) {
-        CGFloat thresholdRatio = MIN(1.f, fabs(translation.x)/self.mdc_options.threshold);
+        
+        CGFloat thresholdRatio;
 
         MDCSwipeDirection direction = MDCSwipeDirectionNone;
         
