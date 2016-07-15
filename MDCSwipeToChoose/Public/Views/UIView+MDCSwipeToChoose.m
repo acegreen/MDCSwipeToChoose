@@ -44,6 +44,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     if (options.swipeEnabled) {
         [self mdc_setupPanGestureRecognizer];
         [self mdc_setupTapGestureRecognizer];
+        [self mdc_setupLongPressGestureRecognizer];
     }
 }
 
@@ -119,6 +120,14 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:action];
     [self addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (void)mdc_setupLongPressGestureRecognizer {
+    SEL action = @selector(mdc_onSwipeToChooseLongPressGestureRecognizer:);
+    UILongPressGestureRecognizer *longPressGestureRecognizer =
+    [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                            action:action];
+    [self addGestureRecognizer:longPressGestureRecognizer];
 }
 
 #pragma mark Translation
@@ -311,6 +320,14 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     id<MDCSwipeToChooseDelegate> delegate = self.mdc_options.delegate;
     if ([delegate respondsToSelector:@selector(viewDidGetTapped:)]) {
         [delegate viewDidGetTapped:self];
+    }
+}
+
+- (void)mdc_onSwipeToChooseLongPressGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
+    
+    id<MDCSwipeToChooseDelegate> delegate = self.mdc_options.delegate;
+    if ([delegate respondsToSelector:@selector(viewDidGetTapped:)]) {
+        [delegate viewDidGetLongPressed:self];
     }
 }
 
