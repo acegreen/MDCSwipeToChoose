@@ -50,6 +50,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 
 - (void)mdc_swipe:(MDCSwipeDirection)direction {
     [self mdc_swipeToChooseSetupIfNecessary];
+    self.mdc_viewState.originalCenter = self.center;
     
     // A swipe in no particular direction "finalizes" the swipe.
     if (direction == MDCSwipeDirectionNone) {
@@ -188,6 +189,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
             self.mdc_options.onChosen(state);
         } no:^{
             [self mdc_returnToOriginalCenter];
+            [self mdc_executeOnPanBlockForTranslation:CGPointZero];
             if (self.mdc_options.onCancel != nil){
                 self.mdc_options.onCancel(self);
             }
@@ -196,6 +198,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 }
 
 - (void)mdc_executeOnPanBlockForTranslation:(CGPoint)translation {
+    
     if (self.mdc_options.onPan) {
         
         CGFloat thresholdRatio;
